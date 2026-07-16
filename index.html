@@ -138,7 +138,8 @@
     </div>
 
     <script>
-        const URL = "https://endstufen.de/api.php";
+        const API_KEY = "AQ.Ab8RN6Iqb78r52EZDwqSxC_OJkrkgORWgFUM0Zn7uUrgWhCP-w";
+        const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const SYSTEM_INSTRUCTION = `Du bist ein Lexikon für natürliche Heilmethoden. Regeln:
 1. Nenne ausschließlich Mittel aus dem alternativmedizinischen Bereich (beschränkt auf 100 vordefinierte Mittel), die eingenommen oder aufgetragen werden.
