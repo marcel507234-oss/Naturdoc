@@ -7,7 +7,7 @@
     <style>
         body { 
             font-family: sans-serif; 
-            background-color: #d9e2db; /* Hintergrundfarbe außerhalb des Handys */
+            background-color: #d9e2db; 
             margin: 0; 
             display: flex; 
             justify-content: center; 
@@ -130,8 +130,7 @@
             </div>
         </header>
         
-        <main id="results">
-        </main>
+        <main id="results"></main>
         
         <div id="status">Suche läuft...</div>
         
@@ -139,8 +138,7 @@
     </div>
 
     <script>
-        const API_KEY = "AQ.Ab8RN6L36EudlD3q_YnpNTVSzic6VcR8uqC5Iwg7Fohry4mppA";
-        const URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro:generateContent";
+        const URL = "https://endstufen.de/api.php";
 
         const SYSTEM_INSTRUCTION = `Du bist ein Lexikon für natürliche Heilmethoden. Regeln:
 1. Nenne ausschließlich Mittel aus dem alternativmedizinischen Bereich (beschränkt auf 100 vordefinierte Mittel), die eingenommen oder aufgetragen werden.
@@ -169,10 +167,7 @@
             try {
                 const response = await fetch(URL, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'x-goog-api-key': API_KEY 
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
                 
