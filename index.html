@@ -138,7 +138,7 @@
     </div>
 
     <script>
-        const API_KEY = "AQ.Ab8RN6Iqb78r52EZDwqSxC_OJkrkgORWgFUM0Zn7uUrgWhCP-w";
+        const API_KEY = "DEIN_ECHTER_API_KEY_HIER";
         const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const SYSTEM_INSTRUCTION = `Du bist ein Lexikon für natürliche Heilmethoden. Regeln:
@@ -161,7 +161,7 @@
             statusDiv.innerText = 'Suche läuft...';
 
             const payload = {
-                "system_instruction": { "parts": [{ "text": SYSTEM_INSTRUCTION }] },
+                "systemInstruction": { "parts": [{ "text": SYSTEM_INSTRUCTION }] },
                 "contents": [{ "role": "user", "parts": [{ "text": query }] }]
             };
 
