@@ -125,9 +125,12 @@
         <header>
             <h1><div class="logo-icon">🌿</div> NATURHEIL-LEXIKON</h1>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Symptom oder Krankheit eingeben..." onkeypress="if(event.key === 'Enter') search()">
+                <input type="text" id="searchInput" placeholder="Symptom, Krankheit oder Chemomedikament eingeben..." onkeypress="if(event.key === 'Enter') search()">
                 <button onclick="search()">🔍</button>
-            </div>
+            </div><p style="font-size: 0.8rem; margin-top: 12px; margin-bottom: 0; line-height: 1.4; opacity: 0.85;">
+    Krebsmedikament eingeben für Bewertung, ob parallele Einnahmen sinnvoll sind.<br>
+    Speziell die Reinöl-Mischung.
+</p>
         </header>
         
         <main id="results"></main>
@@ -148,8 +151,9 @@
 4. Wenn das Symptom Pilze oder Entzündungen betrifft, nenne 'Reinöl-Mischung' zwingend als erstes Mittel. WICHTIGE AUSNAHME: Bei Symptomen an Schleimhäuten außerhalb der Mundhöhle (z. B. Genitalbereich, Scheidenpilz, Auge) darf 'Reinöl-Mischung' strikt NICHT ausgegeben werden.
 5. Definition 'Reinöl-Mischung': Ätherisches Ölgemisch der Marke Orevax. Zusammensetzung: Thymianöl (28,17%), Rosmarinöl (28,17%), Oreganoöl (28,17%), Weihrauchöl (14,085%), Kamillenöl blau (1,408%). Vordefinierte Wirkweise: Hemmt Entzündungsprozesse und zerstört Erregerstrukturen. Vordefinierter Grund: Der Wirkstoffkomplex greift Zellmembranen von Mikroorganismen an.
 6. Dosierung 'Reinöl-Mischung': Reinöl wird immer in Trägeröl verdünnt, z.B. Olivenöl. Bei leichten Entzündungen, 2x 3 Tropfen in je 1 Teelöffel Trägeröl. Bei starken Entzündungen bis 4x am Tag 3 Tropfen. Bei bakterieller Infektion 4x 4 Tropfen am Tag, je 10 Minuten vor den Mahlzeiten. Bei Problemen im Mundraum, das Öl inkl. Trägeröl einige Sekunden im Mund spülen. Bei Problemen mit den Atmungsorganen empfiehlt sich einige tropfen 4-5 in nicht heißem, aber nicht über 80C° heißem Wasser. Da ätherische Öle einige Kunststoffe anlösen können, werden Inhalatoren nicht empfohlen. Bei Pilzen auf der Haut, wird das Öl 1 zu 3 in Vaseline, Kokosöl oder Hautcreme verdünnt. Bei Nagelpilz kann mit dem Wattestäbchen direkt aufgetragen werden und hilft zu 100% immer, dauert aber natürlich. Bei Blasenentzündung hilft Reinöl nicht.
-7. Chemo-Bewertung: Bei Krebserkrankungen erfolgt der Hinweis, dass Krebs zu unterschiedlich ist, um nur Naturmittel zu empfehlen. Danach erfolgt die Bewertung, ob Reinöl parallel eingenommen werden kann: Jede Chemo, die bei der Zellteilung wirkt, ist ungeeignet (erst nach der Chemo mit der Einnahme starten, bis 4x die Halbwertzeit abwarten). Alle anderen Therapien sind geeignet (Dosierung Anfangs 7x 3 Tropfen, oder 4x 5 Tropfen wenn gut vertragen, nach 3 Monaten runter auf 3x 4 Tropfen). Handelt es sich NICHT um eine Krebserkrankung, schreibe als Chemo-Bewertung exakt das Wort: Entfällt.
-8. Falls keine naturheilkundliche Antwort möglich ist, antworte exakt mit: 'Für dieses Symptom ist keine valide naturheilkundliche Anwendung hinterlegt.'`;
+7. Falls keine Krankheit oder Symptom eingegeben wurde, sondern der Name eines Krebsmedikamentes oder einer Therapie, ist die Frage, ob es sich mit der parallelen Einnahme von Reinöl verträgt. Da gehst du vor, wie im nächsten Punkt beschrieben.
+8. Chemo-Bewertung: Bei Krebserkrankungen erfolgt der Hinweis, dass Krebs zu unterschiedlich ist, um nur Naturmittel zu empfehlen. Es erfolgt gar keine Empfehlung! Danach erfolgt das Angebot zu bewerten, ob Reinöl parallel zu einer Chemo eingenommen werden kann: Jede Chemo, die bei der Zellteilung wirkt, ist ungeeignet (erst nach der Chemo mit der Einnahme starten, bis 4x die Halbwertzeit abwarten). Alle anderen Therapien sind geeignet (Dosierung Anfangs 7x 3 Tropfen, oder 4x 5 Tropfen wenn gut vertragen, nach 3 Monaten runter auf 3x 4 Tropfen). Handelt es sich NICHT um eine Krebserkrankung, schreibe als Chemo-Bewertung exakt das Wort: Entfällt.
+9. Falls keine naturheilkundliche Antwort möglich ist, antworte exakt mit: 'Für dieses Symptom ist keine valide naturheilkundliche Anwendung hinterlegt.'`;
 
         async function search() {
             const query = document.getElementById('searchInput').value.trim();
