@@ -3,247 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naturheil-Lexikon</title>
+    <title>AfD-Haushaltsrechner</title>
     <style>
-        body { 
-            font-family: sans-serif; 
-            background-color: #d9e2db; 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-        }
-        #app { 
-            background-color: #e6f2e9; 
-            width: 100%; 
-            max-width: 400px; 
-            min-height: 100vh; 
-            position: relative; 
-            box-shadow: 0 0 15px rgba(0,0,0,0.2); 
-            display: flex;
-            flex-direction: column;
-        }
-        header { 
-            background-color: #3b5f43; 
-            padding: 25px 20px 20px 20px; 
-            color: white; 
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
-        h1 { 
-            font-size: 1.1rem; 
-            margin: 0 0 15px 0; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .logo-icon {
-            background: white;
-            color: #3b5f43;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+        .controls {
+            flex: 2;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .controls h2 {
+            margin-top: 0;
+            color: #4da6ff;
+        }
+        .section-title {
+            margin-top: 20px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #555;
+            color: #aaa;
+        }
+        .option {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            padding-left: 10px;
+        }
+        .val-positive { color: #4caf50; }
+        .val-negative { color: #ff4c4c; }
+        
+        .gauge-container {
+            flex: 1;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            font-size: 1.2rem;
         }
-        .search-container { 
-            position: relative; 
-            width: 100%; 
+        .gauge-wrapper {
+            position: relative;
+            height: 500px;
+            width: 60px;
+            background: #111;
+            border-radius: 30px;
+            border: 2px solid #555;
+            overflow: hidden;
+            margin-top: 20px;
         }
-        input { 
-            width: 100%; 
-            padding: 14px 40px 14px 15px; 
-            border: none; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 0.95rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .zero-line {
+            position: absolute;
+            top: 50px; /* Nulllinie im oberen Bereich, da fast alles ins Minus geht */
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #fff;
+            z-index: 10;
         }
-        input:focus {
-            outline: 2px solid #2e4a34;
+        .zero-label {
+            position: absolute;
+            top: 35px;
+            left: 70px;
+            font-size: 12px;
+            color: #fff;
+            white-space: nowrap;
         }
-        button { 
-            position: absolute; 
-            right: 10px; 
-            top: 50%; 
-            transform: translateY(-50%);
-            background: none; 
-            border: none; 
-            font-size: 1.3rem; 
-            cursor: pointer; 
-            color: #555;
+        .bar {
+            position: absolute;
+            bottom: 450px; /* Start an der Nulllinie (500 - 50) */
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: #4caf50;
+            transition: height 0.4s ease, background-color 0.4s ease, bottom 0.4s ease;
         }
-        main { 
-            padding: 20px; 
-            flex-grow: 1;
-            padding-bottom: 50px; 
-        }
-        .card { 
-            background: white; 
-            padding: 18px; 
-            border-radius: 12px; 
-            margin-bottom: 15px; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06); 
-        }
-        .card h2 { 
-            color: #3b5f43; 
-            margin: 0 0 10px 0; 
-            font-size: 1.2rem; 
-        }
-        .card p { 
-            margin: 5px 0 8px 0; 
-            font-size: 0.95rem; 
-            line-height: 1.4; 
-            color: #222;
-        }
-        .card strong { 
-            color: #000; 
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 2px;
-        }
-        .ursachen-box {
-            margin-top: 15px; 
-            padding: 12px; 
-            background: #f4f8f5; 
-            border-radius: 8px; 
-            border-left: 4px solid #3b5f43;
-            font-size: 0.9rem;
-        }
-        footer { 
-            text-align: center; 
-            font-size: 0.65rem; 
-            color: #555; 
-            padding: 15px;
-        }
-        #status { 
-            text-align: center; 
-            padding: 20px; 
-            color: #3b5f43;
+        .status-text {
+            margin-top: 20px;
+            font-size: 24px;
             font-weight: bold;
-            display: none; 
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <h1><div class="logo-icon">🌿</div> NATURHEIL-LEXIKON</h1>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Symptom, Krankheit oder Chemomedikament eingeben..." onkeypress="if(event.key === 'Enter') search()">
-                <button onclick="search()">🔍</button>
-            </div>
-            <p style="font-size: 0.8rem; margin-top: 8px; margin-bottom: 0; line-height: 1.4; opacity: 0.85;">
-                Symptom oder Krankheit eingeben. Keine Aussage zu Krebs ganz allgemein! Wird nur ein Krebsmedikament eingegeben, wird bewertet, ob und wie die parallele Einnahme sinnvoll ist.<br>
-                Speziell die Reinöl-Mischung.
-            </p>
-        </header>
-        
-        <main id="results"></main>
-        
-        <div id="status">Suche läuft...</div>
-        
-        <footer>*Information dient der Aufklärung, ersetzt keinen Arztbesuch.</footer>
+
+<div class="container">
+    <div class="controls">
+        <h2>Interaktiver Haushaltsrechner</h2>
+        <p>Kreuze die politischen Vorhaben an, um die Auswirkungen auf den Bundeshaushalt zu sehen.</p>
+
+        <div class="section-title">GEPLANTE EINSPARUNGEN</div>
+        <div class="option">
+            <input type="checkbox" id="opt1" class="calc-cb" data-val="25">
+            <label for="opt1">Streichung Asyl-, Migrations- & Integrationskosten</label>
+            <span class="val-positive">+25 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt2" class="calc-cb" data-val="12">
+            <label for="opt2">Einstellung Entwicklungshilfe</label>
+            <span class="val-positive">+12 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt3" class="calc-cb" data-val="8">
+            <label for="opt3">Rückbau Klimasubventionen & Bürokratie</label>
+            <span class="val-positive">+8 Mrd €</span>
+        </div>
+
+        <div class="section-title">MEHRKOSTEN & STEUERAUSFÄLLE</div>
+        <div class="option">
+            <input type="checkbox" id="opt4" class="calc-cb" data-val="-195">
+            <label for="opt4">Rentenniveau auf 70 %</label>
+            <span class="val-negative">-195 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt5" class="calc-cb" data-val="-117">
+            <label for="opt5">25 % Einheitssteuer (Flat Tax)</label>
+            <span class="val-negative">-117 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt6" class="calc-cb" data-val="-55">
+            <label for="opt6">Abschaffung Gewerbesteuer</label>
+            <span class="val-negative">-55 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt7" class="calc-cb" data-val="-15">
+            <label for="opt7">Abschaffung Grundsteuer</label>
+            <span class="val-negative">-15 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt8" class="calc-cb" data-val="-15">
+            <label for="opt8">Umfassende Grenzsicherung</label>
+            <span class="val-negative">-15 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt9" class="calc-cb" data-val="-15">
+            <label for="opt9">Abschaffung CO₂-Abgabe</label>
+            <span class="val-negative">-15 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt10" class="calc-cb" data-val="-12">
+            <label for="opt10">Streichung Solidaritätszuschlag</label>
+            <span class="val-negative">-12 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt11" class="calc-cb" data-val="-9">
+            <label for="opt11">Abschaffung Erbschaftsteuer</label>
+            <span class="val-negative">-9 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt12" class="calc-cb" data-val="-8">
+            <label for="opt12">Senkung Energiesteuer (Kraftstoffe)</label>
+            <span class="val-negative">-8 Mrd €</span>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt13" class="calc-cb" data-val="-2">
+            <label for="opt13">Steuerfinanzierter Ersatz-Rundfunk (GEZ-Ersatz)</label>
+            <span class="val-negative">-2 Mrd €</span>
+        </div>
     </div>
 
-    <script>
-        const API_KEY = "API-Key here";
-        const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${API_KEY}`;
+    <div class="gauge-container">
+        <h3>Haushalts-Status</h3>
+        <div class="gauge-wrapper">
+            <div class="zero-line"></div>
+            <div class="zero-label">Nulllinie (Aktueller Haushalt)</div>
+            <div class="bar" id="budgetBar"></div>
+        </div>
+        <div class="status-text" id="statusText">0 Mrd €</div>
+    </div>
+</div>
 
-        const SYSTEM_INSTRUCTION = `Du bist ein Lexikon für natürliche Heilmethoden. Regeln:
-1. Nenne ausschließlich Mittel aus dem alternativmedizinischen Bereich, die eingenommen oder aufgetragen werden.
-2. Keine Einleitungen, keine Schlussworte, keine medizinischen Disclaimer, keine Arztverweise.
-3. Format exakt: [Mögliche Ursachen] [Mittel]: [Wirkweise] | [Grund der Wirkung] | [Dosierung] | [Chemo-Bewertung] | 
-4. Wenn das Symptom Pilze oder Entzündungen betrifft, prüfe zunächst ob die 'Reinöl-Mischung' als erstes Mittel in Frage kommt. WICHTIGE AUSNAHME: Bei Symptomen an Schleimhäuten außerhalb der Mundhöhle (z. B. Genitalbereich, Scheidenpilz, Auge) darf 'Reinöl-Mischung' strikt NICHT ausgegeben werden.
-5. Definition 'Reinöl-Mischung': Ätherisches Ölgemisch der Marke Orevax. Zusammensetzung: Thymianöl (28,17%), Rosmarinöl (28,17%), Oreganoöl (28,17%), Weihrauchöl (14,085%), Kamillenöl blau (1,408%). Vordefinierte Wirkweise: Hemmt Entzündungsprozesse und zerstört Erregerstrukturen. Vordefinierter Grund: Der Wirkstoffkomplex greift Zellmembranen von Mikroorganismen an.
-6. Dosierung 'Reinöl-Mischung': Reinöl wird immer in Trägeröl verdünnt, z.B. Olivenöl. Bei leichten Entzündungen, 2x 3 Tropfen in je 1 Teelöffel Trägeröl. Bei starken Entzündungen bis 4x am Tag 3 Tropfen. Bei bakterieller Infektion 4x 4 Tropfen am Tag, je 10 Minuten vor den Mahlzeiten. Bei Problemen im Mundraum, das Öl inkl. Trägeröl einige Sekunden im Mund spülen. Bei Problemen mit den Atmungsorganen empfiehlt sich einige tropfen 4-5 in nicht heißem, aber nicht über 80C° heißem Wasser. Da ätherische Öle einige Kunststoffe anlösen können, werden Inhalatoren nicht empfohlen. Bei Pilzen auf der Haut, wird das Öl 1 zu 3 in Vaseline, Kokosöl oder Hautcreme verdünnt. Bei Nagelpilz kann mit dem Wattestäbchen direkt aufgetragen werden und hilft zu 100% immer, dauert aber natürlich. Bei Blasenentzündung hilft Reinöl nicht.
-7. Falls keine Krankheit oder Symptom eingegeben wurde, sondern der Name eines Krebsmedikamentes oder einer Therapie, bewerte die parallele Einnahme (siehe Punkt 8). "Wirkung", "Grund" und "Mögliche Ursachen" werden in diesem Fall NICHT ausgegeben (schreibe dort exakt das Wort: Entfällt). Es darf eine passende Studie zitiert werden, wenn ein konkreter Krebs erwähnt wird, zu dem es eine Studie mit einem der Öle gab.
-8. Chemo-Bewertung: Bei Krebserkrankungen erfolgt der Hinweis, dass Krebs zu unterschiedlich ist, um nur Naturmittel zu empfehlen. Es erfolgt gar keine Empfehlung! Danach erfolgt das Angebot zu bewerten, ob Reinöl parallel zu einer Chemo eingenommen werden kann: Jede Chemo, die bei der Zellteilung wirkt, ist ungeeignet (erst nach der Chemo mit der Einnahme starten, bis 4x die Halbwertzeit abwarten). Alle anderen Therapien sind geeignet (Dosierung Anfangs 7x 3 Tropfen, oder 4x 5 Tropfen wenn gut vertragen, nach 3 Monaten runter auf 3x 4 Tropfen). Handelt es sich NICHT um eine Krebserkrankung, schreibe als Chemo-Bewertung exakt das Wort: Entfällt.
-9. Mögliche Ursachen: Wurde ein Symptom eingegeben, nenne hier die zwei wahrscheinlichsten Gründe inkl. einer geschätzten Wahrscheinlichkeit in %. Füge ZWINGEND diesen Satz an: "Hinweis: Reine Symptome lassen keine eindeutige Diagnose zu." Erkläre danach kurz, was an dem empfohlenen Mittel bei diesen spezifischen Beschwerden von Vorteil ist. Bei Eingabe von konkreten Krankheiten oder Medikamenten schreibe exakt: Entfällt.
-10. Falls keine naturheilkundliche Antwort möglich ist, antworte exakt mit: 'Für dieses Symptom ist keine valide naturheilkundliche Anwendung hinterlegt.'`;
+<script>
+    const checkboxes = document.querySelectorAll('.calc-cb');
+    const budgetBar = document.getElementById('budgetBar');
+    const statusText = document.getElementById('statusText');
 
-        async function search() {
-            const query = document.getElementById('searchInput').value.trim();
-            if (!query) return;
+    // Skalierung: Max Minus ist ca. -444. 1 Mrd = 1 Pixel.
+    const zeroTopOffset = 50; 
+    const containerHeight = 500;
+    const zeroPixel = containerHeight - zeroTopOffset; // 450px von unten
 
-            const resultsDiv = document.getElementById('results');
-            const statusDiv = document.getElementById('status');
-            
-            resultsDiv.innerHTML = '';
-            statusDiv.style.display = 'block';
-            statusDiv.innerText = 'Suche läuft...';
-
-            const payload = {
-                "systemInstruction": { "parts": [{ "text": SYSTEM_INSTRUCTION }] },
-                "contents": [{ "role": "user", "parts": [{ "text": query }] }]
-            };
-
-            try {
-                const response = await fetch(URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                const data = await response.json();
-                statusDiv.style.display = 'none';
-
-                if(data.candidates && data.candidates[0].content.parts[0].text) {
-                    const text = data.candidates[0].content.parts[0].text.trim();
-                    
-                    if(text.includes("keine valide naturheilkundliche Anwendung hinterlegt")) {
-                        resultsDiv.innerHTML = `<div class="card"><p>${text}</p></div>`;
-                        return;
-                    }
-                    
-                    const lines = text.split('\n').filter(line => line.trim() !== '');
-                    
-                    lines.forEach(line => {
-                        // Regex um ein Element auf 6 Bereiche erweitert
-                        const match = line.match(/^(.*?):\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*)$/);
-                        if (match) {
-                            const wirkweise = match[2].trim();
-                            const grund = match[3].trim();
-                            const dosierung = match[4].trim();
-                            const chemoWert = match[5].trim();
-                            const ursachenWert = match[6].trim();
-                            
-                            // Elemente nur anzeigen, wenn sie nicht "Entfällt" sind
-                            const wirkweiseHTML = wirkweise !== 'Entfällt' ? `<p><strong>Wirkweise:</strong><br>${wirkweise}</p>` : '';
-                            const grundHTML = grund !== 'Entfällt' ? `<p><strong>Grund:</strong><br>${grund}</p>` : '';
-                            const chemoHTML = chemoWert !== 'Entfällt' ? `<p><strong>Chemo-Bewertung:</strong><br>${chemoWert}</p>` : '';
-                            const ursachenHTML = ursachenWert !== 'Entfällt' ? `<div class="ursachen-box"><strong>Mögliche Ursachen & Vorteil:</strong><br>${ursachenWert}</div>` : '';
-                            
-                            resultsDiv.innerHTML += `
-                                <div class="card">
-                                    <h2>${match[1].trim()}</h2>
-                                    ${wirkweiseHTML}
-                                    ${grundHTML}
-                                    <p><strong>Dosierung:</strong><br>${dosierung}</p>
-                                    ${chemoHTML}
-                                    ${ursachenHTML}
-                                </div>
-                            `;
-                        } else {
-                            resultsDiv.innerHTML += `<div class="card"><p>${line}</p></div>`;
-                        }
-                    });
-                } else {
-                    let errorMessage = "Unbekannter Fehler von Google.";
-                    if (data.error && data.error.message) {
-                        errorMessage = data.error.message;
-                    }
-                    console.error("API Error Details:", data);
-                    resultsDiv.innerHTML = `<div class="card"><p style="color:#d9534f;"><strong>Fehler von Google:</strong><br>${errorMessage}</p></div>`;
-                }
-            } catch (error) {
-                statusDiv.style.display = 'none';
-                resultsDiv.innerHTML = `<div class="card"><p>Fehler bei der Verbindung zur API.</p></div>`;
+    function updateGauge() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                total += parseFloat(cb.getAttribute('data-val'));
             }
+        });
+
+        // Text Update
+        statusText.innerText = (total > 0 ? "+" : "") + total + " Mrd €";
+        statusText.style.color = getColor(total);
+
+        // Balken Update
+        let barHeight = Math.abs(total);
+        if (barHeight > 440) barHeight = 440; // Max visual cap
+
+        if (total >= 0) {
+            // Wächst nach oben
+            budgetBar.style.height = barHeight + "px";
+            budgetBar.style.bottom = zeroPixel + "px";
+        } else {
+            // Wächst nach unten
+            budgetBar.style.height = barHeight + "px";
+            budgetBar.style.bottom = (zeroPixel - barHeight) + "px";
         }
-    </script>
+        budgetBar.style.backgroundColor = getColor(total);
+    }
+
+    function getColor(val) {
+        if (val >= 0) return "#4caf50"; // Grün (Gedeckelt/Überschuss)
+        if (val >= -30) return "#ff9800"; // Orange (Kritisch)
+        return "#ff4c4c"; // Rot (Unterfinanziert)
+    }
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateGauge);
+    });
+</script>
+
 </body>
 </html>
