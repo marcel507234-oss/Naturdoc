@@ -16,8 +16,8 @@
         }
         .container {
             display: flex;
-            gap: 40px;
-            max-width: 900px;
+            gap: 30px;
+            max-width: 1200px;
             width: 100%;
         }
         .controls {
@@ -97,6 +97,34 @@
             font-weight: bold;
             text-align: center;
         }
+        .info-container {
+            flex: 1.5;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-y: auto;
+            max-height: 650px;
+        }
+        .info-container h3 {
+            margin-top: 0;
+            color: #4da6ff;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+        }
+        .info-item {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            border-left: 4px solid #4da6ff;
+        }
+        .info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -108,77 +136,77 @@
 
         <div class="section-title">GEPLANTE EINSPARUNGEN</div>
         <div class="option">
-            <input type="checkbox" id="opt_e1" class="calc-cb" data-val="20">
+            <input type="checkbox" id="opt_e1" class="calc-cb" data-val="20" data-info="Aktuelle Gesamtkosten von Bund und Ländern liegen bei ca. 20-28 Mrd. €. Die Einsparung geht von einer 100%igen Streichung aus, was verfassungs- und völkerrechtlich hoch umstritten ist.">
             <label for="opt_e1">Streichung sämtlicher Asyl- und Integrationsleistungen</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e2" class="calc-cb" data-val="15">
+            <input type="checkbox" id="opt_e2" class="calc-cb" data-val="15" data-info="Der deutsche Netto-Beitrag liegt bei ca. 15 Mrd. €. Eine Einsparung dieser Summe bedeutet faktisch den Austritt (Dexit) oder einen massiven Vertragsbruch mit der EU.">
             <label for="opt_e2">Reduzierung der EU-Beitragszahlungen</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e3" class="calc-cb" data-val="12">
+            <input type="checkbox" id="opt_e3" class="calc-cb" data-val="12" data-info="Das aktuelle Budget des Ministeriums für wirtschaftliche Zusammenarbeit beträgt ca. 12 Mrd. €. Hier wird eine 100%ige Einstellung sämtlicher internationaler Projekte kalkuliert.">
             <label for="opt_e3">Einstellung der staatlichen Entwicklungshilfe</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e4" class="calc-cb" data-val="10">
+            <input type="checkbox" id="opt_e4" class="calc-cb" data-val="10" data-info="Kalkulierte Einnahmen durch einen kompletten Stopp von Förderungen für erneuerbare Energien (wie Wind- und Solarkraft).">
             <label for="opt_e4">Streichung von Subventionen für „grüne“ Energien (EEG)</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e5" class="calc-cb" data-val="10">
+            <input type="checkbox" id="opt_e5" class="calc-cb" data-val="10" data-info="Einsparvolumen basiert auf der maximalen Reduzierung von Sozialleistungen für diese spezifische Personengruppe.">
             <label for="opt_e5">Streichung von Bürgergeld für abgelehnte Asylbewerber</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e6" class="calc-cb" data-val="8">
+            <input type="checkbox" id="opt_e6" class="calc-cb" data-val="8" data-info="Betrifft die Auflösung des Klima- und Transformationsfonds und den Wegfall direkter Förderungen (z.B. Heizungstausch).">
             <label for="opt_e6">Rückbau direkter Klimasubventionen</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e7" class="calc-cb" data-val="5">
+            <input type="checkbox" id="opt_e7" class="calc-cb" data-val="5" data-info="Komplettstreichung von Bundesförderungen für Zivilgesellschaft, Demokratieförderung, Gleichstellung und bestimmte Kulturprojekte.">
             <label for="opt_e7">Stopp von Fördergeldern für NGOs und Vereine</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_e8" class="calc-cb" data-val="5">
+            <input type="checkbox" id="opt_e8" class="calc-cb" data-val="5" data-info="Eine pauschale Schätzung für erhoffte Effizienzgewinne und massiven Personalabbau in Ministerien und Behörden.">
             <label for="opt_e8">Bürokratieabbau und Verkleinerung der Ministerien</label>
         </div>
 
         <div class="section-title">MEHRKOSTEN & STEUERAUSFÄLLE</div>
         <div class="option">
-            <input type="checkbox" id="opt_m10" class="calc-cb" data-val="-2">
+            <input type="checkbox" id="opt_m10" class="calc-cb" data-val="-2" data-info="Die GEZ fällt weg. Ein steuerfinanzierter, grundrechtlich geforderter Basis-Rundfunk (Informationspflicht) würde den Bundeshaushalt geschätzt 2 Mrd. € kosten.">
             <label for="opt_m10">Staatlich finanzierter Basis-Rundfunk (GEZ-Ersatz)</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m9" class="calc-cb" data-val="-8">
+            <input type="checkbox" id="opt_m9" class="calc-cb" data-val="-8" data-info="Reduzierung der Steuern auf Kraftstoffe (Benzin/Diesel). Dies führt zu direkten jährlichen Einnahmeausfällen beim Bund in Höhe von ca. 8 Mrd. €.">
             <label for="opt_m9">Senkung der Energiesteuer auf Kraftstoffe</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m8" class="calc-cb" data-val="-9">
+            <input type="checkbox" id="opt_m8" class="calc-cb" data-val="-9" data-info="Die Erbschaftsteuer fließt aktuell an die Bundesländer. Ein Wegfall müsste durch den Bund kompensiert werden oder zwingt Länder zu massiven Kürzungen bei Schulen und Polizei.">
             <label for="opt_m8">Komplette Abschaffung der Erbschaftsteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m7" class="calc-cb" data-val="-12">
+            <input type="checkbox" id="opt_m7" class="calc-cb" data-val="-12" data-info="Der Solidaritätszuschlag wird aktuell nur noch von Spitzenverdienern gezahlt. Die komplette Streichung kostet den Bund 12 Mrd. € pro Jahr.">
             <label for="opt_m7">Streichung des Solidaritätszuschlags</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m6" class="calc-cb" data-val="-15">
+            <input type="checkbox" id="opt_m6" class="calc-cb" data-val="-15" data-info="Wegfall der Einnahmen aus der CO2-Bepreisung. Diese Mittel fehlen dann für Förderprogramme oder klimaneutrale Infrastruktur.">
             <label for="opt_m6">Abschaffung der CO₂-Abgabe</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m5" class="calc-cb" data-val="-15">
+            <input type="checkbox" id="opt_m5" class="calc-cb" data-val="-15" data-info="Schätzkosten für die physische Schließung von 3.800 km Außengrenze. Beinhaltet Zäune, Infrastruktur und tausende neue Beamte für lückenlose Kontrollen.">
             <label for="opt_m5">Umfassende physische Grenzsicherung</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m4" class="calc-cb" data-val="-15">
+            <input type="checkbox" id="opt_m4" class="calc-cb" data-val="-15" data-info="Eine reine Länder- und Kommunalsteuer. Bei Abschaffung droht den Gemeinden der Bankrott, wenn der Bund diesen massiven Ausfall nicht ersetzt.">
             <label for="opt_m4">Abschaffung der Grundsteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m3" class="calc-cb" data-val="-55">
+            <input type="checkbox" id="opt_m3" class="calc-cb" data-val="-55" data-info="Die wichtigste Einnahmequelle der Kommunen. Die AfD plant eine Kompensation (Ersatz der Gelder), die den Bundeshaushalt mit ca. 55 Mrd. € belasten würde.">
             <label for="opt_m3">Abschaffung der Gewerbesteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m2" class="calc-cb" data-val="-117">
+            <input type="checkbox" id="opt_m2" class="calc-cb" data-val="-117" data-info="Wegfall der Steuerprogression durch einen Einheitssteuersatz. Der drastische Einnahmeverlust von 117 Mrd. € begünstigt in absoluten Zahlen primär Spitzenverdiener.">
             <label for="opt_m2">Einführung einer 25 % Einheitssteuer (Flat Tax)</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m1" class="calc-cb" data-val="-195">
+            <input type="checkbox" id="opt_m1" class="calc-cb" data-val="-195" data-info="Aktuelles Rentenniveau liegt bei ca. 48 %. Eine Erhöhung und Garantie auf 70 % würde laut Ökonomen jährliche Steuerzuschüsse von fast 200 Mrd. € erfordern.">
             <label for="opt_m1">Garantie für ein Rentenniveau von 70 %</label>
         </div>
     </div>
@@ -192,23 +220,43 @@
         </div>
         <div class="status-text" id="statusText">Budget: 493 Mrd €</div>
     </div>
+
+    <div class="info-container">
+        <h3>Hintergrund & Fakten</h3>
+        <div id="infoBox">
+            <p style="color:#aaa;">Wähle links die Optionen aus, um hier die Details zur Finanzierbarkeit und den aktuellen Kosten zu sehen.</p>
+        </div>
+    </div>
 </div>
 
 <script>
     const checkboxes = document.querySelectorAll('.calc-cb');
     const budgetBar = document.getElementById('budgetBar');
     const statusText = document.getElementById('statusText');
+    const infoBox = document.getElementById('infoBox');
 
     const baseBudget = 493;
     const scaleFactor = 0.5;
 
-    function updateGauge() {
+    function updateGaugeAndInfo() {
         let difference = 0;
+        infoBox.innerHTML = ''; 
+
         checkboxes.forEach(cb => {
             if (cb.checked) {
                 difference += parseFloat(cb.getAttribute('data-val'));
+                
+                // Info-Element erstellen
+                let div = document.createElement('div');
+                div.className = 'info-item';
+                div.innerHTML = `<strong>${cb.nextElementSibling.innerText}</strong> ${cb.getAttribute('data-info')}`;
+                infoBox.appendChild(div);
             }
         });
+
+        if(infoBox.innerHTML === '') {
+            infoBox.innerHTML = '<p style="color:#aaa;">Wähle links die Optionen aus, um hier die Details zur Finanzierbarkeit und den aktuellen Kosten zu sehen.</p>';
+        }
 
         let currentBudget = baseBudget + difference;
         
@@ -238,7 +286,7 @@
     }
 
     checkboxes.forEach(cb => {
-        cb.addEventListener('change', updateGauge);
+        cb.addEventListener('change', updateGaugeAndInfo);
     });
 </script>
 
