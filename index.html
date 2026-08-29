@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfD-Haushaltsrechner</title>
+    <title>Haushaltsrechner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,10 +35,10 @@
             padding-bottom: 5px;
             border-bottom: 1px solid #555;
             color: #aaa;
+            font-weight: bold;
         }
         .option {
             display: flex;
-            justify-content: space-between;
             margin: 10px 0;
             cursor: pointer;
         }
@@ -47,9 +47,6 @@
             flex: 1;
             padding-left: 10px;
         }
-        .val-positive { color: #4caf50; }
-        .val-negative { color: #ff4c4c; }
-        
         .gauge-container {
             flex: 1;
             background: #2d2d2d;
@@ -66,12 +63,11 @@
             background: #111;
             border-radius: 30px;
             border: 2px solid #555;
-            overflow: hidden;
             margin-top: 20px;
         }
         .zero-line {
             position: absolute;
-            top: 50px; /* Nulllinie im oberen Bereich, da fast alles ins Minus geht */
+            top: 250px;
             left: 0;
             right: 0;
             height: 2px;
@@ -80,24 +76,24 @@
         }
         .zero-label {
             position: absolute;
-            top: 35px;
+            top: 242px;
             left: 70px;
-            font-size: 12px;
+            font-size: 13px;
             color: #fff;
             white-space: nowrap;
+            line-height: 1.4;
         }
         .bar {
             position: absolute;
-            bottom: 450px; /* Start an der Nulllinie (500 - 50) */
             left: 0;
             width: 100%;
             height: 0;
             background: #4caf50;
-            transition: height 0.4s ease, background-color 0.4s ease, bottom 0.4s ease;
+            transition: height 0.4s ease, background-color 0.4s ease, top 0.4s ease, bottom 0.4s ease;
         }
         .status-text {
             margin-top: 20px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             text-align: center;
         }
@@ -108,75 +104,82 @@
 <div class="container">
     <div class="controls">
         <h2>Interaktiver Haushaltsrechner</h2>
-        <p>Kreuze die politischen Vorhaben an, um die Auswirkungen auf den Bundeshaushalt zu sehen.</p>
+        <p>Wähle politische Vorhaben aus, um die Auswirkungen auf das Staatsbudget zu simulieren.</p>
 
         <div class="section-title">GEPLANTE EINSPARUNGEN</div>
         <div class="option">
-            <input type="checkbox" id="opt1" class="calc-cb" data-val="25">
-            <label for="opt1">Streichung Asyl-, Migrations- & Integrationskosten</label>
-            <span class="val-positive">+25 Mrd €</span>
+            <input type="checkbox" id="opt_e1" class="calc-cb" data-val="20">
+            <label for="opt_e1">Streichung sämtlicher Asyl- und Integrationsleistungen</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt2" class="calc-cb" data-val="12">
-            <label for="opt2">Einstellung Entwicklungshilfe</label>
-            <span class="val-positive">+12 Mrd €</span>
+            <input type="checkbox" id="opt_e2" class="calc-cb" data-val="15">
+            <label for="opt_e2">Reduzierung der EU-Beitragszahlungen</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt3" class="calc-cb" data-val="8">
-            <label for="opt3">Rückbau Klimasubventionen & Bürokratie</label>
-            <span class="val-positive">+8 Mrd €</span>
+            <input type="checkbox" id="opt_e3" class="calc-cb" data-val="12">
+            <label for="opt_e3">Einstellung der staatlichen Entwicklungshilfe</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt_e4" class="calc-cb" data-val="10">
+            <label for="opt_e4">Streichung von Subventionen für „grüne“ Energien (EEG)</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt_e5" class="calc-cb" data-val="10">
+            <label for="opt_e5">Streichung von Bürgergeld für abgelehnte Asylbewerber</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt_e6" class="calc-cb" data-val="8">
+            <label for="opt_e6">Rückbau direkter Klimasubventionen</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt_e7" class="calc-cb" data-val="5">
+            <label for="opt_e7">Stopp von Fördergeldern für NGOs und Vereine</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="opt_e8" class="calc-cb" data-val="5">
+            <label for="opt_e8">Bürokratieabbau und Verkleinerung der Ministerien</label>
         </div>
 
         <div class="section-title">MEHRKOSTEN & STEUERAUSFÄLLE</div>
         <div class="option">
-            <input type="checkbox" id="opt4" class="calc-cb" data-val="-195">
-            <label for="opt4">Rentenniveau auf 70 %</label>
-            <span class="val-negative">-195 Mrd €</span>
+            <input type="checkbox" id="opt_m1" class="calc-cb" data-val="-195">
+            <label for="opt_m1">Garantie für ein Rentenniveau von 70 %</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt5" class="calc-cb" data-val="-117">
-            <label for="opt5">25 % Einheitssteuer (Flat Tax)</label>
-            <span class="val-negative">-117 Mrd €</span>
+            <input type="checkbox" id="opt_m2" class="calc-cb" data-val="-117">
+            <label for="opt_m2">Einführung einer 25 % Einheitssteuer (Flat Tax)</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt6" class="calc-cb" data-val="-55">
-            <label for="opt6">Abschaffung Gewerbesteuer</label>
-            <span class="val-negative">-55 Mrd €</span>
+            <input type="checkbox" id="opt_m3" class="calc-cb" data-val="-55">
+            <label for="opt_m3">Abschaffung der Gewerbesteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt7" class="calc-cb" data-val="-15">
-            <label for="opt7">Abschaffung Grundsteuer</label>
-            <span class="val-negative">-15 Mrd €</span>
+            <input type="checkbox" id="opt_m4" class="calc-cb" data-val="-15">
+            <label for="opt_m4">Abschaffung der Grundsteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt8" class="calc-cb" data-val="-15">
-            <label for="opt8">Umfassende Grenzsicherung</label>
-            <span class="val-negative">-15 Mrd €</span>
+            <input type="checkbox" id="opt_m5" class="calc-cb" data-val="-15">
+            <label for="opt_m5">Umfassende physische Grenzsicherung</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt9" class="calc-cb" data-val="-15">
-            <label for="opt9">Abschaffung CO₂-Abgabe</label>
-            <span class="val-negative">-15 Mrd €</span>
+            <input type="checkbox" id="opt_m6" class="calc-cb" data-val="-15">
+            <label for="opt_m6">Abschaffung der CO₂-Abgabe</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt10" class="calc-cb" data-val="-12">
-            <label for="opt10">Streichung Solidaritätszuschlag</label>
-            <span class="val-negative">-12 Mrd €</span>
+            <input type="checkbox" id="opt_m7" class="calc-cb" data-val="-12">
+            <label for="opt_m7">Streichung des Solidaritätszuschlags</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt11" class="calc-cb" data-val="-9">
-            <label for="opt11">Abschaffung Erbschaftsteuer</label>
-            <span class="val-negative">-9 Mrd €</span>
+            <input type="checkbox" id="opt_m8" class="calc-cb" data-val="-9">
+            <label for="opt_m8">Komplette Abschaffung der Erbschaftsteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt12" class="calc-cb" data-val="-8">
-            <label for="opt12">Senkung Energiesteuer (Kraftstoffe)</label>
-            <span class="val-negative">-8 Mrd €</span>
+            <input type="checkbox" id="opt_m9" class="calc-cb" data-val="-8">
+            <label for="opt_m9">Senkung der Energiesteuer auf Kraftstoffe</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt13" class="calc-cb" data-val="-2">
-            <label for="opt13">Steuerfinanzierter Ersatz-Rundfunk (GEZ-Ersatz)</label>
-            <span class="val-negative">-2 Mrd €</span>
+            <input type="checkbox" id="opt_m10" class="calc-cb" data-val="-2">
+            <label for="opt_m10">Staatlich finanzierter Basis-Rundfunk (GEZ-Ersatz)</label>
         </div>
     </div>
 
@@ -184,10 +187,10 @@
         <h3>Haushalts-Status</h3>
         <div class="gauge-wrapper">
             <div class="zero-line"></div>
-            <div class="zero-label">Nulllinie (Aktueller Haushalt)</div>
+            <div class="zero-label">493 Mrd €<br>Status Quo. Reicht gerade so ungefähr.</div>
             <div class="bar" id="budgetBar"></div>
         </div>
-        <div class="status-text" id="statusText">0 Mrd €</div>
+        <div class="status-text" id="statusText">Budget: 493 Mrd €</div>
     </div>
 </div>
 
@@ -196,43 +199,46 @@
     const budgetBar = document.getElementById('budgetBar');
     const statusText = document.getElementById('statusText');
 
-    // Skalierung: Max Minus ist ca. -444. 1 Mrd = 1 Pixel.
-    const zeroTopOffset = 50; 
-    const containerHeight = 500;
-    const zeroPixel = containerHeight - zeroTopOffset; // 450px von unten
+    const baseBudget = 493;
+    const scaleFactor = 0.5; // Dämpft den optischen Ausschlag
 
     function updateGauge() {
-        let total = 0;
+        let difference = 0;
         checkboxes.forEach(cb => {
             if (cb.checked) {
-                total += parseFloat(cb.getAttribute('data-val'));
+                difference += parseFloat(cb.getAttribute('data-val'));
             }
         });
 
+        let currentBudget = baseBudget + difference;
+        
         // Text Update
-        statusText.innerText = (total > 0 ? "+" : "") + total + " Mrd €";
-        statusText.style.color = getColor(total);
+        statusText.innerText = "Budget: " + currentBudget + " Mrd €";
+        statusText.style.color = getColor(difference);
 
         // Balken Update
-        let barHeight = Math.abs(total);
-        if (barHeight > 440) barHeight = 440; // Max visual cap
+        let barHeight = Math.abs(difference) * scaleFactor;
+        if (barHeight > 240) barHeight = 240; // Begrenzung innerhalb der oberen/unteren 250px
 
-        if (total >= 0) {
-            // Wächst nach oben
+        if (difference >= 0) {
+            // Wächst nach oben von der Mitte
+            budgetBar.style.bottom = "250px";
+            budgetBar.style.top = "auto";
             budgetBar.style.height = barHeight + "px";
-            budgetBar.style.bottom = zeroPixel + "px";
         } else {
-            // Wächst nach unten
+            // Wächst nach unten von der Mitte
+            budgetBar.style.top = "250px";
+            budgetBar.style.bottom = "auto";
             budgetBar.style.height = barHeight + "px";
-            budgetBar.style.bottom = (zeroPixel - barHeight) + "px";
         }
-        budgetBar.style.backgroundColor = getColor(total);
+        
+        budgetBar.style.backgroundColor = getColor(difference);
     }
 
     function getColor(val) {
-        if (val >= 0) return "#4caf50"; // Grün (Gedeckelt/Überschuss)
-        if (val >= -30) return "#ff9800"; // Orange (Kritisch)
-        return "#ff4c4c"; // Rot (Unterfinanziert)
+        if (val >= 0) return "#4caf50"; // Grün
+        if (val > -50) return "#ff9800"; // Orange
+        return "#ff4c4c"; // Rot
     }
 
     checkboxes.forEach(cb => {
@@ -241,3 +247,4 @@
 </script>
 
 </body>
+</html>
