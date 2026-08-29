@@ -65,65 +65,63 @@
             border: 2px solid #555;
             margin-top: 20px;
         }
+        
+        /* Markierungslinien */
+        .healthy-line {
+            position: absolute;
+            top: 240px; /* +20 Mrd bei Faktor 0.5 */
+            left: 0; right: 0; height: 2px;
+            background: #4caf50; z-index: 11;
+        }
+        .healthy-label {
+            position: absolute;
+            top: 228px; left: 70px; font-size: 12px; color: #4caf50; white-space: nowrap;
+        }
+        
         .zero-line {
             position: absolute;
-            top: 250px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #fff;
-            z-index: 10;
+            top: 250px; left: 0; right: 0; height: 2px;
+            background: #fff; z-index: 10;
         }
         .zero-label {
             position: absolute;
-            top: 242px;
-            left: 70px;
-            font-size: 13px;
-            color: #fff;
-            white-space: nowrap;
-            line-height: 1.4;
+            top: 254px; left: 70px; font-size: 12px; color: #fff; white-space: nowrap;
         }
+        
+        .collapse-line {
+            position: absolute;
+            top: 350px; /* -200 Mrd bei Faktor 0.5 */
+            left: 0; right: 0; height: 2px;
+            background: #ff4c4c; z-index: 11;
+        }
+        .collapse-label {
+            position: absolute;
+            top: 342px; left: 70px; font-size: 12px; color: #ff4c4c; white-space: nowrap;
+            line-height: 1.3;
+        }
+
         .bar {
             position: absolute;
-            left: 0;
-            width: 100%;
-            height: 0;
+            left: 0; width: 100%; height: 0;
             background: #4caf50;
             transition: height 0.4s ease, background-color 0.4s ease, top 0.4s ease, bottom 0.4s ease;
         }
         .status-text {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
+            margin-top: 20px; font-size: 22px; font-weight: bold; text-align: center;
         }
         .info-container {
-            flex: 1.5;
-            background: #2d2d2d;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-y: auto;
-            max-height: 650px;
+            flex: 1.5; background: #2d2d2d; padding: 20px;
+            border-radius: 8px; overflow-y: auto; max-height: 650px;
         }
         .info-container h3 {
-            margin-top: 0;
-            color: #4da6ff;
-            border-bottom: 1px solid #555;
-            padding-bottom: 10px;
+            margin-top: 0; color: #4da6ff; border-bottom: 1px solid #555; padding-bottom: 10px;
         }
         .info-item {
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            line-height: 1.5;
-            border-left: 4px solid #4da6ff;
+            background: #1e1e1e; padding: 15px; border-radius: 5px; margin-bottom: 15px;
+            font-size: 14px; line-height: 1.5; border-left: 4px solid #4da6ff;
         }
         .info-item strong {
-            display: block;
-            margin-bottom: 5px;
-            color: #fff;
+            display: block; margin-bottom: 5px; color: #fff;
         }
     </style>
 </head>
@@ -170,6 +168,10 @@
 
         <div class="section-title">MEHRKOSTEN & STEUERAUSFÄLLE</div>
         <div class="option">
+            <input type="checkbox" id="opt_m2" class="calc-cb" data-val="-117" data-info="Wegfall der Steuerprogression durch einen Einheitssteuersatz. Der drastische Einnahmeverlust von 117 Mrd. € begünstigt in absoluten Zahlen primär Spitzenverdiener.">
+            <label for="opt_m2">Einführung einer 25 % Einheitssteuer (Flat Tax)</label>
+        </div>
+        <div class="option">
             <input type="checkbox" id="opt_m10" class="calc-cb" data-val="-2" data-info="Die GEZ fällt weg. Ein steuerfinanzierter, grundrechtlich geforderter Basis-Rundfunk (Informationspflicht) würde den Bundeshaushalt geschätzt 2 Mrd. € kosten.">
             <label for="opt_m10">Staatlich finanzierter Basis-Rundfunk (GEZ-Ersatz)</label>
         </div>
@@ -202,10 +204,6 @@
             <label for="opt_m3">Abschaffung der Gewerbesteuer</label>
         </div>
         <div class="option">
-            <input type="checkbox" id="opt_m2" class="calc-cb" data-val="-117" data-info="Wegfall der Steuerprogression durch einen Einheitssteuersatz. Der drastische Einnahmeverlust von 117 Mrd. € begünstigt in absoluten Zahlen primär Spitzenverdiener.">
-            <label for="opt_m2">Einführung einer 25 % Einheitssteuer (Flat Tax)</label>
-        </div>
-        <div class="option">
             <input type="checkbox" id="opt_m1" class="calc-cb" data-val="-195" data-info="Aktuelles Rentenniveau liegt bei ca. 48 %. Eine Erhöhung und Garantie auf 70 % würde laut Ökonomen jährliche Steuerzuschüsse von fast 200 Mrd. € erfordern.">
             <label for="opt_m1">Garantie für ein Rentenniveau von 70 %</label>
         </div>
@@ -214,11 +212,18 @@
     <div class="gauge-container">
         <h3>Haushalts-Status</h3>
         <div class="gauge-wrapper">
+            <div class="healthy-line"></div>
+            <div class="healthy-label">+ 20 Mrd € (Gesunder Haushalt / Ø Neuverschuldung)</div>
+            
             <div class="zero-line"></div>
-            <div class="zero-label">493 Mrd €<br>Derzeitiges Budget (erfordert<br>geplante Neuverschuldung).</div>
+            <div class="zero-label">0 Mrd € (Status Quo 493 Mrd €)</div>
+            
+            <div class="collapse-line"></div>
+            <div class="collapse-label">- 200 Mrd €<br>Staatskollaps nach einer Legislaturperiode</div>
+
             <div class="bar" id="budgetBar"></div>
         </div>
-        <div class="status-text" id="statusText">Budget: 493 Mrd €</div>
+        <div class="status-text" id="statusText">Differenz: 0 Mrd €</div>
     </div>
 
     <div class="info-container">
@@ -246,7 +251,6 @@
             if (cb.checked) {
                 difference += parseFloat(cb.getAttribute('data-val'));
                 
-                // Info-Element erstellen
                 let div = document.createElement('div');
                 div.className = 'info-item';
                 div.innerHTML = `<strong>${cb.nextElementSibling.innerText}</strong> ${cb.getAttribute('data-info')}`;
@@ -260,7 +264,7 @@
 
         let currentBudget = baseBudget + difference;
         
-        statusText.innerText = "Budget: " + currentBudget + " Mrd €";
+        statusText.innerText = "Budget: " + currentBudget + " Mrd €\n(" + (difference >= 0 ? "+" : "") + difference + " Mrd €)";
         statusText.style.color = getColor(difference);
 
         let barHeight = Math.abs(difference) * scaleFactor;
@@ -280,15 +284,19 @@
     }
 
     function getColor(val) {
-        if (val >= 0) return "#4caf50";
-        if (val > -50) return "#ff9800";
-        return "#ff4c4c";
+        if (val >= 20) return "#4caf50"; // Grün ab "Gesunder Haushalt"
+        if (val >= 0) return "#8bc34a"; // Hellgrün
+        if (val > -100) return "#ff9800"; // Orange
+        return "#ff4c4c"; // Rot
     }
 
     checkboxes.forEach(cb => {
         cb.addEventListener('change', updateGaugeAndInfo);
     });
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
